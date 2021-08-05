@@ -3,83 +3,106 @@
 
 ### Регистрация
 
-нюхай бэбру
+1) Загрузите приложение Vakios Smart Control с App store или Google Play.
+2) Зарегистрируйтесь и подтвердите Email.
+3) Отправьте письмо на почту developer@vakio.ru с пометкой "Регистрация индивидуального API", в тексте укажите Email, имя и номер теелфона, которые относятся к этому аккаунту.
+4) Мы вышлем вам данные для авторизации.
 
-<!-- *Адрес* 
-```
-POST https://api.vakio.ru/user
-```
+### Токен авторизации пользователя password
 
-*Заголовки*
+*Адрес* 
 ```
-{
-    'Content-Type': 'application/json',
-}
+POST /oauth/token
 ```
 *Тело*
 ```
 {
-    "name": "<your name>",
-    "email": "<your email>",
-    "phone": "your phone",
+    "client_id": "<client_id>",
+    "client_secret": "<client_secret>",
+    "grant_type": "password",
+    "username": "<you email>",
     "password": "<your password, not SHA1ed>",
 }
 ```
 
+### Получение Refresh токена
+
+*Адрес* 
+```
+POST /oauth/token
+```
+*Тело*
+```
+{
+    "client_id": "<client_id>",
+    "client_secret": "<client_secret>",
+    "grant_type": "refresh_token",
+    "refresh_token": "<you refresh_token>",
+}
+```
 *Успешный ответ*
 ```
 {
-    "code": 201,
-    "content": {
-        "id": 3,
-        "email": "max.v@yandex.ru",
-        "phone": "544534534",
-        "password": "8cb2237d0679ca88db6464eac60da96345513964",
-        "name": "max",
-        "scope": "",
-        "verified": 0,
-        "verify_code": 0,
-        "registered": "0000-00-00 00:00:00"
-    }
+    "access_token": "f33e31633a2d70c29ef13adef639c36dc1445a93",
+    "expires_in": 86400,
+    "token_type": "Bearer",
+    "scope": null,
+    "refresh_token": "24bbee6297ee59d3b25e145a758cdf2b6504f39f"
 }
-``` -->
+```
 
-### Восстановление данных пользователя по email
+### Получение данных обо всех устройствах пользователя
 
 *Адрес* 
 ```
-POST https://api.vakio.ru/forgot
+GET https://api.vakio.ru/devices
 ```
-*Заголовки*
+*Заголовки* 
 ```
-{
+headers: {
     'Content-Type': 'application/json',
-}
+    Authorization: 'Bearer <token>',
+},
 ```
-*Тело*
-```
-{
-    "email": "<your email>"
-}
-```
-
-### Подтверждение нового пароля по email
-
-*Адрес* 
-```
-POST https://api.vakio.ru/confirm
-```
-*Заголовки*
+*Успешный ответ*
 ```
 {
-    'Content-Type': 'application/json',
-}
-```
-*Тело*
-```
-{
-    "email": "<your email>",
-    "verify_code": "<your verify_code>",
-    "password": "<your new password, not SHA1ed>",
+    "code": 200,
+    "content": [
+        {
+            "id": 19,
+            "device_name": "Мой прибор 1",
+            "device_type": {
+                "name": "Vakio Plus Series",
+                "slug": "vakio-window-plus",
+                "image": "https://connect.vakio.ru/wp-content/uploads/vakio-window-plus.jpg",
+            },
+            "device_group": "кухня",
+            "capabilities": {
+                "on_off": "off",
+                "mode": "inflow",
+                "speed": "5"
+            },
+            "properties": [],
+            "relation": {
+                            "on_off_dependence":"<on/off>",
+                            *// Для метеостанции*
+                            "dependence":{
+                                "mode":"<inflow/outflow/recuperator>",
+                                "device_id_master":"<device_id_master>",
+                                "min_value":"<device_id_master>",
+                                "step":"<device_id_master>",
+                                "parametr":"<co2/temp/hud>"
+                            }
+                            *// Для бейса*
+                            "dependence":{
+                                "mode":"<sync/async>",
+                                "device_id_master":"<device_id_master>",
+                            }
+                        },
+            "verified": 1,
+            "device_type_id": 2
+        }
+    ]
 }
 ```
