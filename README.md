@@ -7,6 +7,12 @@
 ```
 POST /user
 ```
+
+*Заголовки*
+```
+{
+    'Content-Type': 'application/json',
+}
 *Тело*
 ```
 {
