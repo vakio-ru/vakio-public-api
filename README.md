@@ -16,9 +16,7 @@ POST https://api.vakio.ru/oauth/token
 ```
 *Заголовки* 
 ```
-headers: {
-    'Content-Type': 'application/json'
-},
+'Content-Type': 'application/json'
 ```
 *Тело*
 ```json
@@ -39,10 +37,7 @@ POST https://api.vakio.ru/oauth/token
 ```
 *Заголовки* 
 ```
-headers: 
-{
-    'Content-Type': 'application/json'
-},
+'Content-Type': 'application/json'
 ```
 *Тело*
 ```json
@@ -72,10 +67,8 @@ GET https://api.vakio.ru/devices
 ```
 *Заголовки* 
 ```
-headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer <token>',
-},
+'Content-Type': 'application/json'
+'Authorization': 'Bearer <token>'
 ```
 *Успешный ответ*
 ```
@@ -129,10 +122,8 @@ POST https://api.vakio.ru/devices/{DEVICE_ID}
 ```
 *Заголовки* 
 ```
-headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer <token>',
-},
+'Content-Type': 'application/json',
+'Authorization': 'Bearer <token>',
 ```
 
 *Успешный ответ*
@@ -148,9 +139,8 @@ PUT https://api.vakio.ru/devices/{DEVICE_ID}
 ```
 *Заголовки* 
 ```
-headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer <token>',
+'Content-Type': 'application/json',
+'Authorization': 'Bearer <token>',
 },
 ```
 *Тело*
