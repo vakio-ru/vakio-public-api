@@ -34,3 +34,31 @@ POST /user
     }
 }
 ```
+
+### Восстановление данных пользователя по email
+
+*Адрес* 
+```
+POST https://api.vakio.ru/forgot
+```
+*Тело*
+```
+{
+    "email": "<your email>"
+}
+```
+
+### Подтверждение нового пароля по email
+
+*Адрес* 
+```
+POST https://api.vakio.ru/confirm
+```
+*Тело*
+```
+{
+    "email": "<your email>",
+    "verify_code": "<your verify_code>",
+    "password": "<your new password, not SHA1ed>",
+}
+```
