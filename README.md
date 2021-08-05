@@ -19,7 +19,7 @@ POST https://api.vakio.ru/oauth/token
 headers: {
     'Content-Type': 'application/json'
 },
-```j
+```
 *Тело*
 ```json
 {
