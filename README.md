@@ -5,7 +5,7 @@
 
 *Адрес* 
 ```
-POST /user
+POST https://api.vakio.ru/user
 ```
 
 *Заголовки*
@@ -48,6 +48,12 @@ POST /user
 ```
 POST https://api.vakio.ru/forgot
 ```
+*Заголовки*
+```
+{
+    'Content-Type': 'application/json',
+}
+```
 *Тело*
 ```
 {
@@ -60,6 +66,12 @@ POST https://api.vakio.ru/forgot
 *Адрес* 
 ```
 POST https://api.vakio.ru/confirm
+```
+*Заголовки*
+```
+{
+    'Content-Type': 'application/json',
+}
 ```
 *Тело*
 ```
