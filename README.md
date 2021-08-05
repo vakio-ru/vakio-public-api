@@ -12,7 +12,13 @@
 
 *Адрес* 
 ```
-POST /oauth/token
+POST https://api.vakio.ru/oauth/token
+```
+*Заголовки* 
+```
+headers: {
+    'Content-Type': 'application/json'
+},
 ```
 *Тело*
 ```
@@ -21,7 +27,7 @@ POST /oauth/token
     "client_secret": "<client_secret>",
     "grant_type": "password",
     "username": "<you email>",
-    "password": "<your password, not SHA1ed>",
+    "password": "<your password, not SHA1ed>"
 }
 ```
 
@@ -29,8 +35,13 @@ POST /oauth/token
 
 *Адрес* 
 ```
-POST /oauth/token
+POST https://api.vakio.ru/oauth/token
 ```
+*Заголовки* 
+```
+headers: {
+    'Content-Type': 'application/json'
+},
 *Тело*
 ```
 {
@@ -86,7 +97,7 @@ headers: {
             "properties": [],
             "relation": {
                             "on_off_dependence":"<on/off>",
-                            *// Для метеостанции*
+                            *// Для Atmosphere*
                             "dependence":{
                                 "mode":"<inflow/outflow/recuperator>",
                                 "device_id_master":"<device_id_master>",
@@ -94,7 +105,7 @@ headers: {
                                 "step":"<device_id_master>",
                                 "parametr":"<co2/temp/hud>"
                             }
-                            *// Для бейса*
+                            *// Для Base Smart*
                             "dependence":{
                                 "mode":"<sync/async>",
                                 "device_id_master":"<device_id_master>",
@@ -105,4 +116,24 @@ headers: {
         }
     ]
 }
+```
+    
+    
+### Получение данных об устройстве пользователя
+
+*Адрес* 
+```
+POST /devices/{DEVICE_ID}
+```
+*Заголовки* 
+```
+headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer <token>',
+},
+```
+
+*Успешный ответ*
+```
+см. Получение данных обо всех устройствах пользователя
 ```
