@@ -187,6 +187,7 @@ headers: {
         "instance": "mode",
         "value": "inflow"
     }
+   ]
 }
 ```
 
