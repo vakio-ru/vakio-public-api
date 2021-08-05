@@ -125,7 +125,7 @@ headers: {
 
 *Адрес* 
 ```
-POST /devices/{DEVICE_ID}
+POST https://api.vakio.ru//devices/{DEVICE_ID}
 ```
 *Заголовки* 
 ```
@@ -138,4 +138,78 @@ headers: {
 *Успешный ответ*
 ```
 см. Получение данных обо всех устройствах пользователя
+```
+### Обновление устройства пользователя
+
+*Адрес* 
+```
+PUT /devices/{DEVICE_ID}
+```
+*Заголовки* 
+```
+headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer <token>',
+},
+*Тело*
+```
+{
+
+    "device_name": "<your device_name>",
+    "device_group": "<your device_group>"
+    "device_type": "<your device_type>",
+    "capabilities": [{
+        "instance": "mode",
+        "value": "inflow"
+    },
+    {
+        "instance": "speed",
+        "value": "3"
+    },
+    {
+        "instance": "on_off",
+        "value": "on"
+    }],
+    "properties": <your properties array>
+    "relation": 
+    *// Для метеостанции*
+    [
+        {
+            "instance":"on_off_dependence",
+            "value":"on"
+        },
+        {
+            "instance":"dependence",
+            "value":{
+                "mode":"<inflow/outflow/recuperator>",
+                "device_id_master":"<device_id_master>",
+                "min_value":"<device_id_master>",
+                "step":"<device_id_master>",
+                "parametr":"<co2/temp/hud>"
+            }
+        }
+    ]
+    *// Для Бейса*
+    [
+        {
+            "instance":"on_off_dependence",
+            "value":"on"
+        },
+        {
+            "instance":"dependence",
+            "value":{
+                "mode":"<sync/async>",
+                "device_id_master":"<device_id_master>",
+            }
+        }
+    ]
+}
+```
+
+*Успешный ответ*
+```
+{
+    "code": 200,
+    "content": "updated"
+}
 ```
