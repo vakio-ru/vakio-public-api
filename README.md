@@ -13,6 +13,7 @@ POST /user
 {
     'Content-Type': 'application/json',
 }
+```
 *Тело*
 ```
 {
