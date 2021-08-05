@@ -19,9 +19,9 @@ POST https://api.vakio.ru/oauth/token
 headers: {
     'Content-Type': 'application/json'
 },
-```
+```j
 *Тело*
-```
+```json
 {
     "client_id": "<client_id>",
     "client_secret": "<client_secret>",
@@ -45,7 +45,7 @@ headers:
 },
 ```
 *Тело*
-```
+```json
 {
     "client_id": "<client_id>",
     "client_secret": "<client_secret>",
@@ -54,7 +54,7 @@ headers:
 }
 ```
 *Успешный ответ*
-```
+```json
 {
     "access_token": "f33e31633a2d70c29ef13adef639c36dc1445a93",
     "expires_in": 86400,
@@ -78,7 +78,7 @@ headers: {
 },
 ```
 *Успешный ответ*
-```
+```json
 {
     "code": 200,
     "content": [
@@ -125,7 +125,7 @@ headers: {
 
 *Адрес* 
 ```
-POST https://api.vakio.ru//devices/{DEVICE_ID}
+POST https://api.vakio.ru/devices/{DEVICE_ID}
 ```
 *Заголовки* 
 ```
@@ -143,7 +143,7 @@ headers: {
 
 *Адрес* 
 ```
-PUT /devices/{DEVICE_ID}
+PUT https://api.vakio.ru/devices/{DEVICE_ID}
 ```
 *Заголовки* 
 ```
@@ -153,7 +153,7 @@ headers: {
 },
 ```
 *Тело*
-```
+```json
 {
 
     "device_name": "<your device_name>",
@@ -214,3 +214,43 @@ headers: {
     "content": "updated"
 }
 ```
+
+### Смена режима работы Base Smart
+
+*Адрес* 
+```
+PUT https://api.vakio.ru/devices/{DEVICE_ID}
+```
+*Заголовки* 
+```
+headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer <token>',
+},
+```
+*Тело*
+```json
+{
+    "capabilities": [{
+        "instance": "mode",
+        "value": "inflow"
+    },
+    {
+        "instance": "speed",
+        "value": "3"
+    },
+    {
+        "instance": "on_off",
+        "value": "on"
+    }],
+}
+```
+
+*Успешный ответ*
+```json
+{
+    "code": 200,
+    "content": "updated"
+}
+```
+
