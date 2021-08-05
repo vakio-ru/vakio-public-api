@@ -268,9 +268,20 @@ headers: {
 #### Типы данных
 
 1) Режимы Base Smart
-> "inflow" - приток
+> "inflow" - Приток
 > 
-> "outflow" - вытяжка
+> "outflow" - Вытяжка
 > 
 > "recuperator" - Рекуперация
 > 
+> "inflow_max" - Максимальный приток
+> 
+> "outflow_max" - Максимальная вытяжка
+> 
+> "night" - Ночной режим
+> 
+2) Скорости Base Smart - 
+> 1 - 7
+3) Вкл/ выкл Base Smart 
+> "on"/ "off"
+
