@@ -261,6 +261,14 @@ headers: {
     "capabilities": [{
         "instance": "mode",
         "value": "inflow"
-    },
+    }
 }
 ```
+
+#### Типы данных
+
+1) Режимы Base Smart
+> "inflow" - приток
+> "outflow" - вытяжка
+> "recuperator" - Рекуперация
+> 
