@@ -254,3 +254,13 @@ headers: {
 }
 ```
 
+## Отправка одного параметра
+
+```json
+{
+    "capabilities": [{
+        "instance": "mode",
+        "value": "inflow"
+    },
+}
+```
