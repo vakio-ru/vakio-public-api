@@ -43,7 +43,7 @@ headers:
 {
     'Content-Type': 'application/json'
 },
-
+```
 *Тело*
 ```
 {
