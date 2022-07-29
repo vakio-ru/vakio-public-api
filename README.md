@@ -5,6 +5,142 @@
 Подключение к локальному серверу c помощью MQTT для интеграции приборов Vakio c системами умного дома<br>
 <a target="_blanc" href="https://vakio.ru/vakio-mqtt.pdf">Инструкция по подключению приборов по MQTT</a>.
 
+### Управление приборов в формате json  
+
+### Openair 
+
+
+#### Команды прибора PUBLISH (исходящие)
+
+_Регистрация прибора_
+```jsonc
+{
+  "type": "auth",
+  "auth": {
+    "device_mac": "FF:FF:FF:FF:FF",
+    "version": "1.1.1"
+  },
+  "device_subtype": {
+    "exchange_type": "json",
+    "series": "esp32",
+    "subtype": "tmp8015-chip",
+    "xtal_freq": "40"
+  }
+}
+```  
+
+Топик куда отправляется регистрация 
+```
+device/user_id/device_id/openair/system
+```
+
+
+_Рабочий режим capabilities_ 
+```jsonc
+{
+  "capabilities": {
+    "mode": "manual", // Режим работы "manual", "super_auto"
+    "on_off": "on", // Состояние прибора "on","off"
+    "speed": 1, // 1-5
+    "gate": 4 // 1 - 4 (4 - полностью открыт)
+  }
+}
+```
+Топик capabilities 
+```
+device/user_id/device_id/openair/mode
+```
+
+_Настройки settings_ 
+```jsonc
+{
+  "settings": {
+    "temperature_speed": [20,5], // Настройка умного режима от ВНУТРЕННОГО датчика, 1 - темпераутра, 2 - скорость 
+    "emerg_shunt": 10, // Температура при который клапан прекратит работу (Для избежания образования росы на плате)
+    "gate": 4 // 1 - 4 (4 - полностью открыт) Положение заслонки в умном режиме от ВНУТРЕННОГО датчика
+  }
+}
+```
+Топик settings 
+```
+device/user_id/device_id/openair/mode
+```
+_Привязки relation_ 
+```jsonc
+{
+  "relation": {
+    "on_off_dependence": "on", // Работать от внешнего устройства
+    "dependence": {
+        "device_id_master" : 123, // id мастера для привязки
+        "parametr": "co2", // Тип управления "co2", "temp"
+        "off_temp": 15, // Температура отключиния при работе в режим от co2
+        "min_value": 1000, // Значения CO2 для работы в smart режиме
+        "speed": 4, // Скорость в smart режиме от внешнего датчика
+        "temp": 20, // Значение температуры внешнего датчика для работы в smart режиме
+        "gate": 4, // Положение заслонки при работе от внешнего датчика (1-4)
+    }
+  }
+}
+```
+Топик relation 
+```
+device/user_id/device_id/openair/mode
+```
+_Показания внутреннего датчика_
+
+Топик для показаний температуры
+```
+user_id/device_id/temp
+```
+Топик для показаний влажности
+```
+user_id/device_id/hud
+```
+
+#### Команды прибора SUBSCRIBE (входящие)  
+
+Топик прибора
+```
+server/user_id/device_id/openair/mode
+```
+
+В массиве необязательно указывать все параметры
+
+_Управление прибором_ 
+```jsonc
+{
+  "capabilities": [
+    {"speed": 2},
+    {"gate": 4},
+    {"on_off":"on"},
+    {"mode": "manual"} // "super_auto"
+  ]
+}
+```
+
+_Включить умный режим от внутреннего датчика
+```jsonc
+{
+    "capabilities": [
+        {"mode": "super_auto"} // Включить smart режим
+        ], 
+    "settings": [
+        {"smart_in_temp": 20, "smart_speed": 5} // Установить скорость и целевую температуру 
+        ], 
+    "relation": [
+        {"on_off_dependence": "off"} // Выключить работу от внешнего датчика
+        ]}
+```
+_Настройка температуры отключения (Для избежания образования росы на плате)_ 
+```jsonc
+{
+    "settings": [
+        {"emerg_shunt": 15}
+        ]
+}
+```
+
+
 ## REST API ()
 Открытый API для интеграции приборов Vakio c системами умного дома (для работы прибору необходим доступ к интернету)
 
