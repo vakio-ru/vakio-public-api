@@ -1,41 +1,41 @@
 # Документация по REST API и MQTT Vakio
 
 - MQTT API
-  - [Подключение прибора](#Connect)
-  - [Управление VakioBaseSmart Rev2 (ESP32)](#BaseSmart)
-    - [+/system](#BaseSystem)
-    - [+/mode](#BaseMode)
-    - [+/state](#BaseState)
-    - [+/workmode](#BaseWorkmode)
-    - [+/speed](#BaseSpeed)
-  - [Управление VakioOpenair Rev2 (ESP32)](#Openair)
-    - [device/+/openair/system | server/+/openair/system](#OpenairSystem)
-    - [device/+/openair/mode | server/+/openair/mode](#OpenairMode)
-    - [+/state](#OpenairState)
-    - [+/workmode](#OpenairWorkmode)
-    - [+/gate](#OpenairGate)
-    - [+/speed](#OpenairSpeed)
-    - [+/temp](#OpenairTemp)
-    - [+/hud](#OpenairHud)
-  - [Управление VakioAtmosphere](#Atmosphere)
-    - [+/system](#AtmosphereSystem)
-    - [+/temp](#AtmosphereTemp)
-    - [+/co2](#AtmosphereCO2)
-    - [+/hud](#AtmosphereHud)
+  - [Подключение прибора](#connect)
+  - [Управление VakioBaseSmart Rev2 (ESP32)](#basesmart)
+    - [+/system](#basesystem)
+    - [+/mode](#basemode)
+    - [+/state](#basestate)
+    - [+/workmode](#baseworkmode)
+    - [+/speed](#basespeed)
+  - [Управление VakioOpenair Rev2 (ESP32)](#openair)
+    - [device/+/openair/system | server/+/openair/system](#openairsystem)
+    - [device/+/openair/mode | server/+/openair/mode](#openairmode)
+    - [+/state](#openairstate)
+    - [+/workmode](#openairworkmode)
+    - [+/gate](#openairgate)
+    - [+/speed](#openairspeed)
+    - [+/temp](#openairtemp)
+    - [+/hud](#openairhud)
+  - [Управление VakioAtmosphere](#atmosphere)
+    - [+/system](#atmospheresystem)
+    - [+/temp](#atmospheretemp)
+    - [+/co2](#atmosphereco2)
+    - [+/hud](#atmospherehud)
 - REST API
-  - [Регистрация](#Register)
-  - [Получение данных о приборах](#Info)
-  - [Управление VakioBaseSmart](#RestBaseSmart)
+  - [Регистрация](#register)
+  - [Получение данных о приборах](#info)
+  - [Управление VakioBaseSmart](#restbasesmart)
 ---  
 
-### <a name="Connect"></a> Подключение прибора
+### <a name="connect"></a> Подключение прибора
 
 Подключение к локальному серверу c помощью MQTT для интеграции приборов Vakio c системами умного дома<br>
 <a target="_blanc" href="https://vakio.ru/vakio-mqtt.pdf">Инструкция по подключению приборов по MQTT</a>.
 
 ---  
 
-### <a name="BaseSmart"></a> Управление VakioBaseSmart  
+### <a name="basesmart"></a> Управление VakioBaseSmart  
 
 Команды для актуальной версии **(1.2.1)**, если они недоступны, обновите прибор
 
@@ -47,7 +47,7 @@
   message: 0609  
 ```
 
-#### <a name="BaseSystem"></a> Топик +/system 
+#### <a name="basesystem"></a> Топик +/system 
 
 "+" - Ваш топик по умолчанию (vakio/system)
 
@@ -78,7 +78,7 @@ _Сброс к заводским настройкам_
 0608
 ```  
 
-#### <a name="BaseMode"></a> Топик +/mode 
+#### <a name="basemode"></a> Топик +/mode 
 
 "+" - Ваш топик по умолчанию (vakio/mode)
 
@@ -113,7 +113,7 @@ _Скорость_
 0650X (X - от 1 до 7)
 ``` 
 
-#### <a name="BaseState"></a> Топик +/state 
+#### <a name="basestate"></a> Топик +/state 
 
 "+" - Ваш топик по умолчанию (vakio/state)
 
@@ -126,7 +126,7 @@ _Скорость_
 on - Включить
 0ff - Выключить
 ```
-#### <a name="BaseWorkmode"></a> Топик +/workmmode 
+#### <a name="baseworkmode"></a> Топик +/workmmode 
 
 "+" - Ваш топик по умолчанию (vakio/workmmode)
 
@@ -144,7 +144,7 @@ outflow - Вытяжка
 outflow_max - Вытяжка MAX
 night - Ночной
 ```
-#### <a name="BaseSpeed"></a> Топик +/speed 
+#### <a name="basespeed"></a> Топик +/speed 
 
 "+" - Ваш топик по умолчанию (vakio/speed)
 
@@ -158,11 +158,11 @@ night - Ночной
 ```
 
 --- 
-### <a name="Openair"></a> Управление VakioOpenair Rev2  
+### <a name="openair"></a> Управление Vakioopenair Rev2  
 
 Команды для актуальной версии **(1.1.0)**, если они недоступны, обновите прибор
 
-**C версии 1.1.0 Openair поддерживает команды в json с массивами, так и в формате объектов**
+**C версии 1.1.0 openair поддерживает команды в json с массивами, так и в формате объектов**
 
 "+" - Ваш топик по умолчанию (vakio/system)
 ```
@@ -182,7 +182,7 @@ night - Ночной
   }
 ```
 
-#### <a name="OpenairSystem"></a> device/+/openair/system | server/+/openair/system
+#### <a name="openairsystem"></a> device/+/openair/system | server/+/openair/system
 
 "+" - Ваш топик по умолчанию (vakio/system)
 
@@ -276,7 +276,7 @@ _Обновление прошивки_
   }
 ```
 
-#### <a name="OpenairMode"></a> device/+/openair/mode | server/+/openair/mode
+#### <a name="openairmode"></a> device/+/openair/mode | server/+/openair/mode
 
 "+" - Ваш топик по умолчанию (vakio/system)
 
@@ -359,7 +359,7 @@ _Настройка прибора_
     }
 }
 ```
-#### <a name="OpenairState"></a> Топик +/state 
+#### <a name="openairstate"></a> Топик +/state 
 
 "+" - Ваш топик по умолчанию (vakio/state)
 
@@ -372,7 +372,7 @@ _Настройка прибора_
 on - Включить
 0ff - Выключить
 ```
-#### <a name="OpenairWorkmode"></a> Топик +/workmmode 
+#### <a name="openairworkmode"></a> Топик +/workmmode 
 
 "+" - Ваш топик по умолчанию (vakio/workmmode)
 
@@ -385,7 +385,7 @@ on - Включить
 manual - Ручной режим
 super_auto - SMART режим
 ```
-#### <a name="OpenairSpeed"></a> Топик +/speed 
+#### <a name="openairspeed"></a> Топик +/speed 
 
 "+" - Ваш топик по умолчанию (vakio/speed)
 
@@ -397,7 +397,7 @@ super_auto - SMART режим
 ```
 0-5 (Номер скорости)
 ```
-#### <a name="OpenairGate"></a> Топик +/gate 
+#### <a name="openairgate"></a> Топик +/gate 
 
 "+" - Ваш топик по умолчанию (vakio/gate)
 
@@ -409,7 +409,7 @@ super_auto - SMART режим
 ```
 1-4 (Позиция заслонки)
 ```
-#### <a name="OpenairTemp"></a> Топик +/temp 
+#### <a name="openairtemp"></a> Топик +/temp 
 
 "+" - Ваш топик по умолчанию (vakio/temp)
 
@@ -422,7 +422,7 @@ super_auto - SMART режим
 Пример:
 20 
 ```
-#### <a name="OpenairHud"></a> Топик +/hud 
+#### <a name="openairhud"></a> Топик +/hud 
 
 "+" - Ваш топик по умолчанию (vakio/hud)
 
@@ -438,7 +438,7 @@ super_auto - SMART режим
 
 ---
 
-### <a name="Atmosphere"></a> Управление VakioAtmosphere  
+### <a name="atmosphere"></a> Управление VakioAtmosphere  
 
 Команды для актуальной версии **(1.0.2)**, если они недоступны, обновите прибор
 
@@ -450,7 +450,7 @@ super_auto - SMART режим
   message: 0709  
 ```
 
-#### <a name="AtmosphereSystem"></a> Топик +/system 
+#### <a name="atmospheresystem"></a> Топик +/system 
 
 "+" - Ваш топик по умолчанию (vakio/system)
 
@@ -497,7 +497,7 @@ _Проверка онлайна_
 0787
 ```  
 
-#### <a name="AtmosphereTemp"></a> Топик +/temp 
+#### <a name="atmospheretemp"></a> Топик +/temp 
 
 "+" - Ваш топик по умолчанию (vakio/temp)
 
@@ -510,7 +510,7 @@ _Проверка онлайна_
 Пример:
 20 
 ```
-#### <a name="AtmosphereHud"></a> Топик +/hud 
+#### <a name="atmospherehud"></a> Топик +/hud 
 
 "+" - Ваш топик по умолчанию (vakio/hud)
 
@@ -523,7 +523,7 @@ _Проверка онлайна_
 Пример:
 33 
 ```
-#### <a name="AtmosphereCO2"></a> Топик +/co2 
+#### <a name="atmosphereco2"></a> Топик +/co2 
 
 "+" - Ваш топик по умолчанию (vakio/hud)
 
@@ -542,7 +542,7 @@ _Проверка онлайна_
 ## REST API ()
 Открытый API для интеграции приборов Vakio c системами умного дома (для работы прибору необходим доступ к интернету)
 
-### <a name="Register"></a> Регистрация
+### <a name="register"></a> Регистрация
 
 1) Загрузите приложение Vakio Smart Control с App Store или Google Play.
 2) Зарегистрируйтесь и подтвердите Email.
@@ -601,7 +601,7 @@ POST https://api.vakio.ru/oauth/token
 ```
 
 ---
-### <a name="Info"></a> Получение данных о приборах
+### <a name="info"></a> Получение данных о приборах
 
 ### Получение данных обо всех устройствах пользователя
 
@@ -675,7 +675,7 @@ POST https://api.vakio.ru/devices/{DEVICE_ID}
 см. Получение данных обо всех устройствах пользователя
 ```
 
-### <a name="RestBaseSmart"></a> Управление BaseSmart
+### <a name="restbasesmart"></a> Управление basesmart
 
 ### Смена режима/ скорости работы Base Smart
 
