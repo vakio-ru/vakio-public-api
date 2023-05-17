@@ -126,9 +126,9 @@ _Скорость_
 on - Включить
 0ff - Выключить
 ```
-#### <a name="baseworkmode"></a> Топик +/workmmode 
+#### <a name="baseworkmode"></a> Топик +/workmode 
 
-"+" - Ваш топик по умолчанию (vakio/workmmode)
+"+" - Ваш топик по умолчанию (vakio/workmode)
 
 ##### Команды прибора PUBLISH/SUBSCRIBE
 
@@ -372,9 +372,9 @@ _Настройка прибора_
 on - Включить
 0ff - Выключить
 ```
-#### <a name="openairworkmode"></a> Топик +/workmmode 
+#### <a name="openairworkmode"></a> Топик +/workmode 
 
-"+" - Ваш топик по умолчанию (vakio/workmmode)
+"+" - Ваш топик по умолчанию (vakio/workmode)
 
 ##### Команды прибора PUBLISH/SUBSCRIBE
 
