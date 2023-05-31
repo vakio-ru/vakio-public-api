@@ -173,7 +173,7 @@ night - Ночной
   {
     "firmware":[
         {
-            "server":"service.vakio.ru"
+            "domain":"service.vakio.ru"
         },
         {
             "start":1
@@ -256,7 +256,7 @@ _Обновление прошивки_
 {
     "firmware":[
         {
-            "server":"service.vakio.ru"
+            "domain":"service.vakio.ru"
         },
         {
             "start":1
@@ -269,7 +269,7 @@ _Обновление прошивки_
 ```json
   {
     "firmware":{
-        "server":"service.vakio.ru",
+        "domain":"service.vakio.ru",
         "start":1
     }
     
