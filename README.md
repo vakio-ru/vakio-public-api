@@ -27,9 +27,9 @@
   - [Получение данных о приборах](#info)
   - [Управление VakioBaseSmart](#restbasesmart)
 - Интеграции с системами умных домов
-  -- Home Assistant
-    --- <a target="_blanc" href="[[https://github.com/vakio-ru/vakio_base_smart]](https://github.com/vakio-ru/vakio_base_smart)">VAKIO Smart Series</a>
-    --- <a target="_blanc" href="[[https://github.com/vakio-ru/vakio_openair]](https://github.com/vakio-ru/vakio_openair)">VAKIO Openair</a>
+  - Home Assistant
+    - <a target="_blanc" href="https://github.com/vakio-ru/vakio_base_smart">VAKIO Smart Series</a>
+    - <a target="_blanc" href="https://github.com/vakio-ru/vakio_openair">VAKIO Openair</a>
 ---  
 
 ### <a name="connect"></a> Подключение прибора
