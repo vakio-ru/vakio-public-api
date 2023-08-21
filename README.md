@@ -30,6 +30,12 @@
   - Home Assistant
     - <a target="_blanc" href="https://github.com/vakio-ru/vakio_base_smart">VAKIO Smart Series</a>
     - <a target="_blanc" href="https://github.com/vakio-ru/vakio_openair">VAKIO Openair</a>
+    - <a target="_blanc" href="https://github.com/vakio-ru/vakio_atmosphere">VAKIO Atmosphere</a>
+    - <a target="_blanc" href="https://github.com/vakio-ru/vakio_kiv">VAKIO Kiv Smart</a>
+  - MajorDOMO
+    - <a target="_blanc" href="https://github.com/vakio-ru/vakio_smart_control">Smart-устройства</a>
+  - Sprut.hub (от партнеров)
+    - <a target="_blanc" href="https://comf.life/kak-dobavit-rekuperator-vakio-v-umnyj-dom-wirenboard-yandeks-alisu-apple-home-spruthub.html">VAKIO Smart Series + Wirenboard</a>
 ---  
 
 ### <a name="connect"></a> Подключение прибора
