@@ -26,6 +26,7 @@
   - [Регистрация](#register)
   - [Получение данных о приборах](#info)
   - [Управление VakioBaseSmart](#restbasesmart)
+  - [Управление VakioOpenAir](#restopenair)
 - Интеграции с системами умных домов
   - Home Assistant
     - <a target="_blanc" href="https://github.com/vakio-ru/vakio_base_smart">VAKIO Smart Series</a>
@@ -36,94 +37,112 @@
     - <a target="_blanc" href="https://github.com/vakio-ru/vakio_smart_control">Smart-устройства</a>
   - Sprut.hub (от партнеров)
     - <a target="_blanc" href="https://comf.life/kak-dobavit-rekuperator-vakio-v-umnyj-dom-wirenboard-yandeks-alisu-apple-home-spruthub.html">VAKIO Smart Series + Wirenboard</a>
----  
+
+---
 
 ### <a name="connect"></a> Подключение прибора
 
 Подключение к локальному серверу c помощью MQTT для интеграции приборов Vakio c системами умного дома<br>
 <a target="_blanc" href="https://vakio.ru/vakio-mqtt.pdf">Инструкция по подключению приборов по MQTT</a>.
 
----  
+---
 
-### <a name="basesmart"></a> Управление VakioBaseSmart  
+### <a name="basesmart"></a> Управление VakioBaseSmart
 
 Команды для актуальной версии **(1.2.1)**, если они недоступны, обновите прибор
 
 "+" - Ваш топик по умолчанию (vakio/system)
 
-
 ```
-  topic: +/system  
-  message: 0609  
+  topic: +/system
+  message: 0609
 ```
 
-#### <a name="basesystem"></a> Топик +/system 
+#### <a name="basesystem"></a> Топик +/system
 
 "+" - Ваш топик по умолчанию (vakio/system)
 
 ##### Команды прибора PUBLISH (исходящие)
 
 _Регистрация прибора_ (Отправляется при каждом подключении)
+
 ```
 0601{series:esp32,subtype:"subtype","xtal_freq":"xtal_freq"}
-```  
+```
+
 ```
 060006versionmacaddress | 0600061.2.1FF:FF:FF:FF:FF
-```  
+```
 
-##### Команды прибора SUBSCRIBE (входящие)  
+##### Команды прибора SUBSCRIBE (входящие)
 
 _Запустить обновление прибора_
+
 ```
 0609
-```  
+```
+
 _Повтор регистрации_
+
 ```
 0687
-```  
+```
+
 Прибор отправит на +/system команды регистрации прибора и сообщение `0685`
 
 _Сброс к заводским настройкам_
+
 ```
 0608
-```  
+```
 
-#### <a name="basemode"></a> Топик +/mode 
+#### <a name="basemode"></a> Топик +/mode
 
 "+" - Ваш топик по умолчанию (vakio/mode)
 
 ##### Команды прибора PUBLISH/SUBSCRIBE
 
 _Включить/Выключить прибор_
+
 ```
 06000 - Выключить
 06001 - Включить
-```  
+```
+
 _Режим рекуперации_
+
 ```
 06010 - Рекуперация лето
 06011 - Рекуперация зима
-```  
+```
+
 _Режим приток_
+
 ```
 06021 - Приток
 06022 - Приток MAX
-```  
+```
+
 _Режим вытяжка_
+
 ```
 06031 - Вытяжка
 06032 - Вытяжка MAX
-```  
+```
+
 _Режим ночной_
+
 ```
 06041
-```  
+```
+
 _Скорость_
+
 ```
 0650X (X - от 1 до 7)
-``` 
+```
 
-#### <a name="basestate"></a> Топик +/state 
+#### <a name="basestate"></a> Топик +/state
 
 "+" - Ваш топик по умолчанию (vakio/state)
 
@@ -131,12 +150,14 @@ _Скорость_
 
 Управление состояние прибора (Вкл/Выкл)
 
-Команда 
+Команда
+
 ```
 on - Включить
 0ff - Выключить
 ```
-#### <a name="baseworkmode"></a> Топик +/workmode 
+
+#### <a name="baseworkmode"></a> Топик +/workmode
 
 "+" - Ваш топик по умолчанию (vakio/workmode)
 
@@ -144,7 +165,8 @@ on - Включить
 
 Управление режимом прибора
 
-Команда 
+Команда
+
 ```
 inflow - Приток
 inflow_max - Приток MAX
@@ -154,7 +176,8 @@ outflow - Вытяжка
 outflow_max - Вытяжка MAX
 night - Ночной
 ```
-#### <a name="basespeed"></a> Топик +/speed 
+
+#### <a name="basespeed"></a> Топик +/speed
 
 "+" - Ваш топик по умолчанию (vakio/speed)
 
@@ -162,34 +185,37 @@ night - Ночной
 
 Управление скоростью прибора
 
-Команда 
+Команда
+
 ```
 1-7 (Номер скорости)
 ```
 
---- 
-### <a name="openair"></a> Управление Vakioopenair Rev2  
+---
+
+### <a name="openair"></a> Управление Vakioopenair Rev2
 
 Команды для актуальной версии **(1.1.0)**, если они недоступны, обновите прибор
 
 **C версии 1.1.0 openair поддерживает команды в json с массивами, так и в формате объектов**
 
 "+" - Ваш топик по умолчанию (vakio/system)
+
 ```
 Топик: server/+/openair/system
 ```
 
 ```json
-  {
-    "firmware":[
-        {
-            "domain":"service.vakio.ru"
-        },
-        {
-            "start":1
-        }
-    ]
-  }
+{
+  "firmware": [
+    {
+      "domain": "service.vakio.ru"
+    },
+    {
+      "start": 1
+    }
+  ]
+}
 ```
 
 #### <a name="openairsystem"></a> device/+/openair/system | server/+/openair/system
@@ -198,92 +224,100 @@ night - Ночной
 
 ##### Команды прибора PUBLISH (исходящие)
 
-Топик для получения команд от прибора 
+Топик для получения команд от прибора
+
 ```
 device/+/openair/system
 ```
 
 _Регистрация прибора_ (Отправляется при каждом подключении)
+
 ```jsonc
 {
-    "type": "auth",
-    "auth": {
-        "device_mac": "FF:FF:FF:FF:FF",
-        "version": "1.1.1"
-    },
-    "device_subtype": {
-        "exchange_type": "json",
-        "series": "esp32",
-        "subtype": "tmp8015-chip",
-        "xtal_freq": "40"
-    }
+  "type": "auth",
+  "auth": {
+    "device_mac": "FF:FF:FF:FF:FF",
+    "version": "1.1.1"
+  },
+  "device_subtype": {
+    "exchange_type": "json",
+    "series": "esp32",
+    "subtype": "tmp8015-chip",
+    "xtal_freq": "40"
+  }
 }
 ```
+
 _Ошибка переохладения_ (Отправляется при критически низкой температуры платы)
 
 ```jsonc
 {
-    "errors": {
-        "shutdown":1 // 1 - Состояние переохлаждения | 0 - нормальное состояние
-    }
+  "errors": {
+    "shutdown": 1 // 1 - Состояние переохлаждения | 0 - нормальное состояние
+  }
 }
-``` 
+```
 
-##### Команды прибора SUBSCRIBE (входящие)  
+##### Команды прибора SUBSCRIBE (входящие)
 
 Топик для отправки команд прибору
+
 ```
 server/+/openair/system
 ```
 
 _Настройка переохлаждения_
+
 ```jsonc
 {
-    "shutdown":{
-        "limit": 0 // Значение температуры при котором войдет в состояние переохлаждения
-    }
+  "shutdown": {
+    "limit": 0 // Значение температуры при котором войдет в состояние переохлаждения
+  }
 }
-```  
+```
 
 _Сброс настроек_
+
 ```jsonc
 {
-    "reset":[
-        {
-           "wireless" : "reset" // Сброс настроек подключения 
-        },
-        {
-           "device" : "reset" // Сброс параметров режима работы
-        },
-        {
-           "all" : "reset" // Полный сброс настроек
-        }
-    ]
-}
-```
-_Обновление прошивки_
-```json
-{
-    "firmware":[
-        {
-            "domain":"service.vakio.ru"
-        },
-        {
-            "start":1
-        }
-    ]
+  "reset": [
+    {
+      "wireless": "reset" // Сброс настроек подключения
+    },
+    {
+      "device": "reset" // Сброс параметров режима работы
+    },
+    {
+      "all": "reset" // Полный сброс настроек
+    }
+  ]
 }
 ```
 
-Актальная версия прибора  (с 1.1.0)
+_Обновление прошивки_
+
 ```json
-  {
-    "firmware":{
-        "domain":"service.vakio.ru",
-        "start":1
+{
+  "firmware": [
+    {
+      "domain": "service.vakio.ru"
+    },
+    {
+      "start": 1
     }
-    
+  ]
+}
+```
+
+Актальная версия прибора (с 1.1.0)
+
+```json
+{
+  "firmware": {
+    "domain": "service.vakio.ru",
+    "start": 1
   }
+}
 ```
 
 #### <a name="openairmode"></a> device/+/openair/mode | server/+/openair/mode
@@ -292,84 +326,96 @@ _Обновление прошивки_
 
 ##### Команды прибора PUBLISH (исходящие)
 
-Топик для получения команд от прибора 
+Топик для получения команд от прибора
+
 ```
 device/+/openair/mode
-```  
-_Рабочий режим capabilities_ 
+```
+
+_Рабочий режим capabilities_
+
 ```jsonc
 {
-    "capabilities": {
-        "mode": "manual", // Режим работы "manual", "super_auto"
-        "on_off": "on", // Состояние прибора "on","off"
-        "speed": 1, // 0-5
-        "gate": 4 // 1 - 4 (4 - полностью открыт)
-    }
+  "capabilities": {
+    "mode": "manual", // Режим работы "manual", "super_auto"
+    "on_off": "on", // Состояние прибора "on","off"
+    "speed": 1, // 0-5
+    "gate": 4 // 1 - 4 (4 - полностью открыт)
+  }
 }
 ```
 
-_Настройки settings_ 
+_Настройки settings_
+
 ```jsonc
 {
-    "settings": {
-        "temperature_speed": [20,5], // Настройка умного режима от ВНУТРЕННОГО датчика, 1 - темпераутра, 2 - скорость 
-        "emerg_shunt": 10, // Температура при который клапан прекратит работу (Для избежания образования росы на плате)
-        "gate": 4 // 1 - 4 (4 - полностью открыт) Положение заслонки в умном режиме от ВНУТРЕННОГО датчика
-    }
+  "settings": {
+    "temperature_speed": [20, 5], // Настройка умного режима от ВНУТРЕННОГО датчика, 1 - темпераутра, 2 - скорость
+    "emerg_shunt": 10, // Температура при который клапан прекратит работу (Для избежания образования росы на плате)
+    "gate": 4 // 1 - 4 (4 - полностью открыт) Положение заслонки в умном режиме от ВНУТРЕННОГО датчика
+  }
 }
-```  
+```
+
 ##### Команды прибора SUBSCRIBE (входящие)
 
 Топик для отправки команд прибору
+
 ```
 server/+/openair/mode
-```  
-_Управление прибором_ 
+```
+
+_Управление прибором_
+
 ```jsonc
 {
   "capabilities": [
-    {"speed": 2},
-    {"gate": 4},
-    {"on_off":"on"},
-    {"mode": "manual"} // "super_auto"
+    { "speed": 2 },
+    { "gate": 4 },
+    { "on_off": "on" },
+    { "mode": "manual" } // "super_auto"
   ]
 }
 ```
 
-Актальная версия прибора  (с 1.1.0)
+Актальная версия прибора (с 1.1.0)
+
 ```jsonc
 {
-    "capabilities": {
-        "mode": "manual", // Режим работы "manual", "super_auto"
-        "on_off": "on", // Состояние прибора "on","off"
-        "speed": 1, // 1-5
-        "gate": 4 // 1 - 4 (4 - полностью открыт)
-    }
+  "capabilities": {
+    "mode": "manual", // Режим работы "manual", "super_auto"
+    "on_off": "on", // Состояние прибора "on","off"
+    "speed": 1, // 1-5
+    "gate": 4 // 1 - 4 (4 - полностью открыт)
+  }
 }
 ```
 
+_Настройка прибора_
 
-_Настройка прибора_ 
 ```jsonc
 {
-    "settings": [
-        {"gate": 1}, // 1-4 Положение заслонки в SMART режиме
-        {"smart_speed": 1}, // 1-5 Скорость в SMART режиме
-        {"emerg_shunt": 5}, // Темперура отключения прибора
-    ]
+  "settings": [
+    { "gate": 1 }, // 1-4 Положение заслонки в SMART режиме
+    { "smart_speed": 1 }, // 1-5 Скорость в SMART режиме
+    { "emerg_shunt": 5 } // Темперура отключения прибора
+  ]
 }
 ```
-Актальная версия прибора  (с 1.1.0)
+
+Актальная версия прибора (с 1.1.0)
+
 ```jsonc
 {
-    "settings": {
-        "gate": 1, // 1-4 Положение заслонки в SMART режиме
-        "smart_speed": 1, // 1-5 Скорость в SMART режиме
-        "emerg_shunt": 5 // Темперура отключения прибора
-    }
+  "settings": {
+    "gate": 1, // 1-4 Положение заслонки в SMART режиме
+    "smart_speed": 1, // 1-5 Скорость в SMART режиме
+    "emerg_shunt": 5 // Темперура отключения прибора
+  }
 }
 ```
-#### <a name="openairstate"></a> Топик +/state 
+
+#### <a name="openairstate"></a> Топик +/state
 
 "+" - Ваш топик по умолчанию (vakio/state)
 
@@ -377,12 +423,14 @@ _Настройка прибора_
 
 Управление состояние прибора (Вкл/Выкл)
 
-Команда 
+Команда
+
 ```
 on - Включить
 0ff - Выключить
 ```
-#### <a name="openairworkmode"></a> Топик +/workmode 
+
+#### <a name="openairworkmode"></a> Топик +/workmode
 
 "+" - Ваш топик по умолчанию (vakio/workmode)
 
@@ -390,12 +438,14 @@ on - Включить
 
 Управление режимом прибора
 
-Команда 
+Команда
+
 ```
 manual - Ручной режим
 super_auto - SMART режим
 ```
-#### <a name="openairspeed"></a> Топик +/speed 
+
+#### <a name="openairspeed"></a> Топик +/speed
 
 "+" - Ваш топик по умолчанию (vakio/speed)
 
@@ -403,11 +453,13 @@ super_auto - SMART режим
 
 Управление скоростью прибора
 
-Команда 
+Команда
+
 ```
 0-5 (Номер скорости)
 ```
-#### <a name="openairgate"></a> Топик +/gate 
+
+#### <a name="openairgate"></a> Топик +/gate
 
 "+" - Ваш топик по умолчанию (vakio/gate)
 
@@ -415,216 +467,249 @@ super_auto - SMART режим
 
 Управление заслонкой прибора
 
-Команда 
+Команда
+
 ```
 1-4 (Позиция заслонки)
 ```
-#### <a name="openairtemp"></a> Топик +/temp 
+
+#### <a name="openairtemp"></a> Топик +/temp
 
 "+" - Ваш топик по умолчанию (vakio/temp)
 
 ##### Команды прибора PUBLISH
 
-Показания внутренного датчика температуры 
-
+Показания внутренного датчика температуры
 
 ```
 Пример:
-20 
+20
 ```
-#### <a name="openairhud"></a> Топик +/hud 
+
+#### <a name="openairhud"></a> Топик +/hud
 
 "+" - Ваш топик по умолчанию (vakio/hud)
 
 ##### Команды прибора PUBLISH
 
-Показания внутренного датчика влажности 
-
+Показания внутренного датчика влажности
 
 ```
 Пример:
-33 
+33
 ```
 
 ---
 
-### <a name="atmosphere"></a> Управление VakioAtmosphere  
+### <a name="atmosphere"></a> Управление VakioAtmosphere
 
 Команды для актуальной версии **(1.0.2)**, если они недоступны, обновите прибор
 
 "+" - Ваш топик по умолчанию (vakio/system)
 
-
 ```
-  topic: +/system  
-  message: 0709  
+  topic: +/system
+  message: 0709
 ```
 
-#### <a name="atmospheresystem"></a> Топик +/system 
+#### <a name="atmospheresystem"></a> Топик +/system
 
 "+" - Ваш топик по умолчанию (vakio/system)
 
 ##### Команды прибора PUBLISH (исходящие)
 
 _Регистрация прибора_ (Отправляется при каждом подключении)
+
 ```
 0701{"series":"esp8266","subtype":"subtype","xtal_freq":"xtal_freq"}
-```  
+```
+
 ```
 070007versionmacaddress | 0700061.2.1FF:FF:FF:FF:FF
-```  
+```
 
-##### Команды прибора SUBSCRIBE (входящие)  
+##### Команды прибора SUBSCRIBE (входящие)
 
 _Запустить обновление прибора_
+
 ```
 0709
-```  
+```
+
 _Вкл/Выкл светодиодов_
+
 ```
 0732X (X - 0/1)
-```  
+```
+
 _Ротация дисплея_
+
 ```
 0731X (X - 0/1)
-```  
+```
+
 _Выбор режима подсветки_
+
 ```
 0727x (X - 0-1)
 0 - ручная настройка яркости педсветки
 1 - яркость подсветки зависит от освещенности
-```  
+```
+
 _Яркость подсветки в ручном режиме_
+
 ```
 0727x (X - 000-100) 3 символа
-```  
+```
+
 _Сброс настроек_
+
 ```
 0708
-```  
+```
+
 _Проверка онлайна_
+
 ```
 0787
-```  
+```
 
-#### <a name="atmospheretemp"></a> Топик +/temp 
+#### <a name="atmospheretemp"></a> Топик +/temp
 
 "+" - Ваш топик по умолчанию (vakio/temp)
 
 ##### Команды прибора PUBLISH
 
-Показания внутренного датчика температуры 
-
+Показания внутренного датчика температуры
 
 ```
 Пример:
-20 
+20
 ```
-#### <a name="atmospherehud"></a> Топик +/hud 
+
+#### <a name="atmospherehud"></a> Топик +/hud
 
 "+" - Ваш топик по умолчанию (vakio/hud)
 
 ##### Команды прибора PUBLISH
 
-Показания внутренного датчика влажности 
-
+Показания внутренного датчика влажности
 
 ```
 Пример:
-33 
+33
 ```
-#### <a name="atmosphereco2"></a> Топик +/co2 
+
+#### <a name="atmosphereco2"></a> Топик +/co2
 
 "+" - Ваш топик по умолчанию (vakio/hud)
 
 ##### Команды прибора PUBLISH
 
-Показания внутренного датчика CO2 
-
+Показания внутренного датчика CO2
 
 ```
 Пример:
-1000 
+1000
 ```
 
 ---
 
 ## REST API ()
+
 Открытый API для интеграции приборов Vakio c системами умного дома (для работы прибору необходим доступ к интернету)
 
 ### <a name="register"></a> Регистрация
 
-1) Загрузите приложение Vakio Smart Control с App Store или Google Play.
-2) Зарегистрируйтесь и подтвердите Email.
-3) Отправьте письмо на почту developer@vakio.ru с пометкой "Регистрация индивидуального API", в тексте укажите Email, имя и номер телeфона, которые относятся к этому аккаунту.
-4) Мы вышлем вам данные для авторизации.
+1. Загрузите приложение Vakio Smart Control с App Store или Google Play.
+2. Зарегистрируйтесь и подтвердите Email.
+3. Отправьте письмо на почту developer@vakio.ru с пометкой "Регистрация индивидуального API", в тексте укажите Email, имя и номер телeфона, которые относятся к этому аккаунту.
+4. Мы вышлем вам данные для авторизации.
 
 ### Получение токена для авторизации с помощью пароля
 
-*Адрес* 
+_Адрес_
+
 ```
 POST https://api.vakio.ru/oauth/token
 ```
-*Заголовки* 
+
+_Заголовки_
+
 ```
 'Content-Type': 'application/json'
 ```
-*Тело*
+
+_Тело_
+
 ```json
 {
-    "client_id": "<client_id>",
-    "client_secret": "<client_secret>",
-    "grant_type": "password",
-    "username": "<you email>",
-    "password": "<your password, not SHA1ed>"
+  "client_id": "<client_id>",
+  "client_secret": "<client_secret>",
+  "grant_type": "password",
+  "username": "<you email>",
+  "password": "<your password, not SHA1ed>"
 }
 ```
 
 ### Получение Refresh токена
 
-*Адрес* 
+_Адрес_
+
 ```
 POST https://api.vakio.ru/oauth/token
 ```
-*Заголовки* 
+
+_Заголовки_
+
 ```
 'Content-Type': 'application/json'
 ```
-*Тело*
+
+_Тело_
+
 ```json
 {
-    "client_id": "<client_id>",
-    "client_secret": "<client_secret>",
-    "grant_type": "refresh_token",
-    "refresh_token": "<you refresh_token>",
+  "client_id": "<client_id>",
+  "client_secret": "<client_secret>",
+  "grant_type": "refresh_token",
+  "refresh_token": "<you refresh_token>"
 }
 ```
-*Успешный ответ*
+
+_Успешный ответ_
+
 ```json
 {
-    "access_token": "f33e31633a2d70c29ef13adef639c36dc1445a93",
-    "expires_in": 86400,
-    "token_type": "Bearer",
-    "scope": null,
-    "refresh_token": "24bbee6297ee59d3b25e145da758cdf2b6504f39f"
+  "access_token": "f33e31633a2d70c29ef13adef639c36dc1445a93",
+  "expires_in": 86400,
+  "token_type": "Bearer",
+  "scope": null,
+  "refresh_token": "24bbee6297ee59d3b25e145da758cdf2b6504f39f"
 }
 ```
 
 ---
+
 ### <a name="info"></a> Получение данных о приборах
 
 ### Получение данных обо всех устройствах пользователя
 
-*Адрес* 
+_Адрес_
+
 ```
 GET https://api.vakio.ru/devices
 ```
-*Заголовки* 
+
+_Заголовки_
+
 ```
 'Content-Type': 'application/json'
 'Authorization': 'Bearer <token>'
 ```
-*Успешный ответ*
+
+_Успешный ответ_
+
 ```
 {
     "code": 200,
@@ -666,21 +751,24 @@ GET https://api.vakio.ru/devices
     ]
 }
 ```
-    
-    
+
 ### Получение данных об устройстве пользователя
 
-*Адрес* 
+_Адрес_
+
 ```
 POST https://api.vakio.ru/devices/{DEVICE_ID}
 ```
-*Заголовки* 
+
+_Заголовки_
+
 ```
 'Content-Type': 'application/json',
 'Authorization': 'Bearer <token>',
 ```
 
-*Успешный ответ*
+_Успешный ответ_
+
 ```
 см. Получение данных обо всех устройствах пользователя
 ```
@@ -689,39 +777,47 @@ POST https://api.vakio.ru/devices/{DEVICE_ID}
 
 ### Смена режима/ скорости работы Base Smart
 
-*Адрес* 
+_Адрес_
+
 ```
 PUT https://api.vakio.ru/devices/{DEVICE_ID}
 ```
-*Заголовки* 
+
+_Заголовки_
+
 ```
 'Content-Type': 'application/json',
 'Authorization': 'Bearer <token>',
 },
 ```
-*Тело*
+
+_Тело_
+
 ```json
 {
-    "capabilities": [{
-        "instance": "mode",
-        "value": "inflow"
+  "capabilities": [
+    {
+      "instance": "mode",
+      "value": "inflow"
     },
     {
-        "instance": "speed",
-        "value": "3"
+      "instance": "speed",
+      "value": "3"
     },
     {
-        "instance": "on_off",
-        "value": "on"
-    }],
+      "instance": "on_off",
+      "value": "on"
+    }
+  ]
 }
 ```
 
-*Успешный ответ*
+_Успешный ответ_
+
 ```json
 {
-    "code": 200,
-    "content": "updated"
+  "code": 200,
+  "content": "updated"
 }
 ```
 
@@ -729,32 +825,113 @@ PUT https://api.vakio.ru/devices/{DEVICE_ID}
 
 ```json
 {
-    "capabilities": [{
-        "instance": "mode",
-        "value": "inflow"
+  "capabilities": [
+    {
+      "instance": "mode",
+      "value": "inflow"
     }
-   ]
+  ]
 }
 ```
 
 #### Типы данных
 
-1) Режимы Base Smart
-> "inflow" - Приток
-> 
-> "outflow" - Вытяжка
-> 
-> "recuperator" - Рекуперация
-> 
-> "inflow_max" - Максимальный приток
-> 
-> "outflow_max" - Максимальная вытяжка
-> 
-> "night" - Ночной режим
-> 
-2) Скорости Base Smart - 
-> 1 - 7
-3) Вкл/ выкл Base Smart 
-> "on"/ "off"
+1. Режимы Base Smart
+   > "inflow" - Приток
+   >
+   > "outflow" - Вытяжка
+   >
+   > "recuperator" - Рекуперация
+   >
+   > "inflow_max" - Максимальный приток
+   >
+   > "outflow_max" - Максимальная вытяжка
+   >
+   > "night" - Ночной режим
+2. Скорости Base Smart -
+   > 1 - 7
+3. Вкл/ выкл Base Smart
+   > "on"/ "off"
 
+### <a name="restopenair"></a> Управление OpenAir
 
+### Смена режима/положения заслонки/скорости работы OpenAir
+
+_Адрес_
+
+```
+PUT https://api.vakio.ru/devices/{DEVICE_ID}
+```
+
+_Заголовки_
+
+```
+'Content-Type': 'application/json',
+'Authorization': 'Bearer <token>',
+```
+
+_Тело_
+
+```json
+{
+  "capabilities": [
+    {
+      "instance": "mode",
+      "value": "manual"
+    },
+    {
+      "instance": "speed",
+      "value": "3"
+    },
+    {
+      "instance": "gate",
+      "value": "1"
+    },
+    {
+      "instance": "on_off",
+      "value": "on"
+    }
+  ]
+}
+```
+
+_Успешный ответ_
+
+```json
+{
+  "code": 200,
+  "device": {
+    // Информация об изменённом устройстве
+  }
+}
+```
+
+#### Отправка одного параметра
+
+```json
+{
+  "capabilities": [
+    {
+      "instance": "mode",
+      "value": "manual"
+    }
+  ]
+}
+```
+
+#### Типы данных
+
+1. Режимы Openair
+   > "manual" - Режим ручного управления
+   >
+   > "smart_auto" - Smart-режим
+2. Скорости Openair
+   > 0 - 5
+3. Положение заслонки Openair _(доступно не на всех устройствах)_
+   > 1 - 4
+   >
+   > _\*доступно не на всех устройствах._
+   >
+   > _\*\*изменение положения заслонки не работает, если значение скорости больше 0._
+4. Вкл/выкл Openair
+   > "on"/ "off"
