@@ -728,7 +728,11 @@ _Успешный ответ_
                 "mode": "inflow",
                 "speed": "5"
             },
-            "properties": [],
+            "properties": {
+                *// Для устройств с датчиками (Atmosphere, Openair и др.)*
+                "humidity": 24,
+                "temperature": 345
+            },
             "relation": {
                             "on_off_dependence":"<on/off>",
                             *// Для Atmosphere*
