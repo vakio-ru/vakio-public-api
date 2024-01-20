@@ -22,6 +22,15 @@
     - [+/temp](#atmospheretemp)
     - [+/co2](#atmosphereco2)
     - [+/hud](#atmospherehud)
+  - [Управление VakioCityAir](#cityair)
+    - [device/+/cityair/system](#cityairsystem)
+    - [+/workmode](#cityairworkmode)
+    - [+/speed](#cityairspeed)
+    - [+/temp_limit](#cityairtemp_limit)
+    - [+/state](#cityairstate)
+    - [device/+/cityair/temp](#cityairtemp)
+    - [device/+/cityair/mode](#cityairjsonmode)
+    - [server/+/cityair/system](#cityairjsonserversystem)
 - REST API
   - [Регистрация](#register)
   - [Получение данных о приборах](#info)
@@ -552,7 +561,7 @@ _Выбор режима подсветки_
 
 ```
 0727x (X - 0-1)
-0 - ручная настройка яркости педсветки
+0 - ручная настройка яркости подсветки
 1 - яркость подсветки зависит от освещенности
 ```
 
@@ -613,6 +622,211 @@ _Проверка онлайна_
 1000
 ```
 
+### <a name="cityair"></a> Управление VakioCityair
+
+Команды для актуальной версии, если они недоступны, обновите прибор
+
+#### <a name="cityairsystem"></a> Топик device/+/cityair/system
+
+"+" - Ваш топик по умолчанию (device/vakio/cityair/system)
+
+##### Команды прибора PUBLISH (исходящие)
+
+_Регистрация прибора_ (Отправляется при каждом подключении)
+
+```json
+{
+  "type": "auth",
+  "auth": { "device_mac": "24:D7:EB:B0:19:E4", "version": "1.1.9" },
+  "device_subtype": {
+    "series": "esp32",
+    "subtype": "default",
+    "xtal_freq": "40"
+  }
+}
+```
+
+##### Команды прибора SUBSCRIBE (входящие)
+
+#### <a name="cityairworkmode"></a> Топик +/workmode
+
+"+" - Ваш топик по умолчанию (vakio/workmode)
+
+##### Команды прибора PUBLISH/SUBSCRIBE
+
+Режим работы прибора
+
+Команда
+
+```
+inflow - Приток
+smart - SMART режим
+inflow_max - Макс. приток
+```
+
+#### <a name="cityairspeed"></a> Топик +/speed
+
+"+" - Ваш топик по умолчанию (vakio/speed)
+
+##### Команды прибора PUBLISH/SUBSCRIBE
+
+Скорость прибора
+
+Команда
+
+```
+1-7
+```
+
+#### <a name="cityairtemp_limit"></a> Топик +/temp_limit
+
+"+" - Ваш топик по умолчанию (vakio/temp_limit)
+
+##### Команды прибора PUBLISH
+
+Температура с датчика прибора
+
+```
+Пример:
+33
+```
+
+#### <a name="cityairstate"></a> Топик +/state
+
+"+" - Ваш топик по умолчанию (vakio/state)
+
+##### Команды прибора PUBLISH/SUBSCRIBE
+
+Управление состояние прибора (Вкл/Выкл)
+
+Команда
+
+```
+on - Включить
+0ff - Выключить
+```
+
+#### <a name="cityairtemp"></a> Топик device/+/cityair/temp
+
+"+" - Ваш топик по умолчанию (device/vakio/cityair/temp)
+
+##### Команды прибора PUBLISH
+
+Отправляет него структуру температур in, out. Если они изменились на +-0.2 градуса
+
+```json
+{
+  "temp_out": <float>,
+  "temp_in": <float>
+}
+```
+
+Пример
+
+```json
+{
+  "temp_out": 25.23,
+  "temp_in": 10.15
+}
+```
+
+#### <a name="cityairjsonmode"></a> device/+/cityair/mode
+
+"+" - Ваш топик по умолчанию (device/vakio/cityair/mode)
+
+##### Команды прибора PUBLISH
+
+Прибор отправляет в них структуры capabilities, settings.
+(При регистрации, по запросу logging в system, изменении состоянии дампера, если
+прибор поменяет внутри state, speed, smart_speed, mode, temp)
+
+Пример
+
+```json
+{
+  "capabilities": {
+    "mode": "inflow",
+    "on_off": "off",
+    "speed": 1,
+    "speed_pwm": 0,
+    "smart_speed": 1,
+    "heat": 25,
+    "damper": 0
+  },
+  "settings": {
+    "ten": {
+      "temp_limit": 25,
+      "on_off": 1,
+      "koef_grow": 50,
+      "update_koef_time": 5000000,
+      "delta": 1
+    }
+  },
+  "remote_control": 0
+}
+```
+
+#### <a name="cityairjsonserversystem"></a> server/+/cityair/system
+
+"+" - Ваш топик по умолчанию (server/vakio/cityair/system)
+
+##### Команды прибора PUBLISH
+
+Отправка команды в этот топик инициирует публикацию текущих параметров в соответствующие топики.
+
+Команда
+
+```json
+{
+  "logging": {
+    "type": "settings"
+  }
+}
+```
+
+Ответ в `device/vakio/cityair/mode`
+
+```json
+{
+  "settings": {
+    "ten": {
+      "temp_limit": 25,
+      "on_off": 1,
+      "koef_grow": 50,
+      "update_koef_time": 5000000,
+      "delta": 1
+    }
+  },
+  "remote_control": 0
+}
+```
+
+Команда
+
+```json
+{
+  "logging": {
+    "type": "capabilities"
+  }
+}
+```
+
+Ответ в `device/vakio/cityair/mode`
+
+```json
+{
+  "capabilities": {
+    "mode": "inflow",
+    "on_off": "off",
+    "speed": 1,
+    "speed_pwm": 0,
+    "smart_speed": 1,
+    "heat": 25,
+    "damper": 0
+  }
+}
+```
+
 ---
 
 ## REST API ()
@@ -623,7 +837,7 @@ _Проверка онлайна_
 
 1. Загрузите приложение Vakio Smart Control с App Store или Google Play.
 2. Зарегистрируйтесь и подтвердите Email.
-3. Отправьте письмо на почту developer@vakio.ru с пометкой "Регистрация индивидуального API", в тексте укажите Email, имя и номер телeфона, которые относятся к этому аккаунту.
+3. Отправьте письмо на почту <developer@vakio.ru> с пометкой "Регистрация индивидуального API", в тексте укажите Email, имя и номер телeфона, которые относятся к этому аккаунту.
 4. Мы вышлем вам данные для авторизации.
 
 ### Получение токена для авторизации с помощью пароля
