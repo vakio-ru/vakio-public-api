@@ -703,7 +703,7 @@ inflow_max - Макс. приток
 
 ```
 on - Включить
-0ff - Выключить
+0 - Выключить
 ```
 
 #### <a name="cityairtemp"></a> Топик device/+/cityair/temp
