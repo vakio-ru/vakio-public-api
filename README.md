@@ -36,6 +36,7 @@
   - [Получение данных о приборах](#info)
   - [Управление VakioBaseSmart](#restbasesmart)
   - [Управление VakioOpenAir](#restopenair)
+  - [Управление VakioVector](rest/cityair.md)
 - Интеграции с системами умных домов
   - Home Assistant
     - <a target="_blanc" href="https://github.com/vakio-ru/vakio_base_smart">VAKIO Smart Series</a>
