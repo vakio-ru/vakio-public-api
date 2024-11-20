@@ -626,206 +626,85 @@ _Проверка онлайна_
 ### <a name="cityair"></a> Управление VakioCityair
 
 Команды для актуальной версии, если они недоступны, обновите прибор
+Для данного прибора формирование топиков происходит по следующей схеме:
++/+/..
+"+" - последние 2 байта мас адреса устройства
+"+" - ваш топик (по умолчанию cityair)
+.. - изменяемая часть
 
-#### <a name="cityairsystem"></a> Топик device/+/cityair/system
+#### <a name="lwt_pub_topic"></a> Топик на публикацию +/+/lwt
 
-"+" - Ваш топик по умолчанию (device/vakio/cityair/system)
+При каждом подключении прибора к серверу происходит публикация сообщения
+"Online", при отключении - "Offline"
 
-##### Команды прибора PUBLISH (исходящие)
+#### <a name="system_topic"></a> Топик на подписку +/+/system
 
-_Регистрация прибора_ (Отправляется при каждом подключении)
+При получении прибором команды "GET" на сервер отправляются все настройки устройства
 
-```json
-{
-  "type": "auth",
-  "auth": { "device_mac": "24:D7:EB:B0:19:E4", "version": "1.1.9" },
-  "device_subtype": {
-    "series": "esp32",
-    "subtype": "default",
-    "xtal_freq": "40"
-  }
-}
-```
+#### <a name="log_topic"></a> Топик на публикацию +/+/log
 
-##### Команды прибора SUBSCRIBE (входящие)
+При каждом подключении прибора к серверу происходит публикация сообщения
+версии прибора, mac адреса прибора, ip прибора
 
-#### <a name="cityairworkmode"></a> Топик +/workmode
+#### <a name="state_topic"></a> Топик на подписку +/+/state/set Топик на публикацию +/+/state
 
-"+" - Ваш топик по умолчанию (vakio/workmode)
+Команды вкл/выкл прибора: "on"/"off"
 
-##### Команды прибора PUBLISH/SUBSCRIBE
+#### <a name="ten_state_topic"></a> Топик на подписку +/+/ten_state/set Топик на публикацию +/+/ten_state
 
-Режим работы прибора
+Команды вкл/выкл тена прибора: "on"/"off"
 
-Команда
+#### <a name="damper_state_topic"></a> Топик на подписку +/+/damper_state/set Топик на публикацию +/+/damper_state
 
-```
-inflow - Приток
-smart - SMART режим
-```
+Команды использования/не использования заслонки: "on"/"off"
 
-#### <a name="cityairspeed"></a> Топик +/speed
+#### <a name="target_temp_topic"></a> Топик на подписку +/+/target_temp/set Топик на публикацию +/+/target_temp
 
-"+" - Ваш топик по умолчанию (vakio/speed)
+Команды целевой температуры тена: 10..25 (в градусах)
 
-##### Команды прибора PUBLISH/SUBSCRIBE
+#### <a name="target_speed_topic"></a> Топик на подписку +/+/target_speed/set Топик на публикацию +/+/target_speed
 
-Скорость прибора
+Команды целевой скорости вентилятора: 1..7
 
-Команда
+#### <a name="speed_topic"></a> Топик на публикацию +/+/speed
 
-```
-1-7
-```
+Команды скорости вентилятора: 0..100 (в процентах)
 
-#### <a name="cityairtemp_limit"></a> Топик +/temp_limit
+#### <a name="in_temp_topic"></a> Топик на публикацию +/+/in_temp
 
-"+" - Ваш топик по умолчанию (vakio/temp_limit)
+Команды температуры датчика температуры на входе: -55..+125 (в градусах)
 
-##### Команды прибора PUBLISH
+#### <a name="out_temp_topic"></a> Топик на публикацию +/+/out_temp
 
-Температура с датчика прибора
+Команды температуры датчика температуры на выходе: -55..+125 (в градусах)
 
-```
-Пример:
-33
-```
+#### <a name="damper_topic"></a> Топик на публикацию +/+/damper
 
-#### <a name="cityairstate"></a> Топик +/state
+Команды положения заслонки: "closed", "opened", "opens", "closes"
 
-"+" - Ваш топик по умолчанию (vakio/state)
+#### <a name="filter_topic"></a> Топик на публикацию +/+/filter
 
-##### Команды прибора PUBLISH/SUBSCRIBE
+Команды фильтра наработки моточасов (в часах)
 
-Управление состояние прибора (Вкл/Выкл)
+#### <a name="odometer_topic"></a> Топик на публикацию +/+/odometer
 
-Команда
+Команды фильтра наработки часов (в часах)
 
-```
-on - Включить
-0 - Выключить
-```
+#### <a name="error_topic"></a> Топик на публикацию +/+/error
 
-#### <a name="cityairtemp"></a> Топик device/+/cityair/temp
+Команды ошибок прибора: "temp_hot", "temp_cold", "stop_hot", "stop_cold", "ds18_bus", "ds18_lack", "no"
 
-"+" - Ваш топик по умолчанию (device/vakio/cityair/temp)
+#### <a name="reset_error_topic"></a> Топик на подписку +/+/reset_error
 
-##### Команды прибора PUBLISH
+Команда сброса ошибок прибора: любое значение
 
-Отправляет него структуру температур in, out. Если они изменились на +-0.2 градуса
+#### <a name="reset_filter_topic"></a> Топик на подписку +/+/reset_filter
 
-```json
-{
-  "temp_out": <float>,
-  "temp_in": <float>
-}
-```
+Команда сброса фильтра: любое значение
 
-Пример
+#### <a name="update_topic"></a> Топик на подписку +/+/update
 
-```json
-{
-  "temp_out": 25.23,
-  "temp_in": 10.15
-}
-```
-
-#### <a name="cityairjsonmode"></a> device/+/cityair/mode
-
-"+" - Ваш топик по умолчанию (device/vakio/cityair/mode)
-
-##### Команды прибора PUBLISH
-
-Прибор отправляет в них структуры capabilities, settings.
-(При регистрации, по запросу logging в system, изменении состоянии дампера, если
-прибор поменяет внутри state, speed, smart_speed, mode, temp)
-
-Пример
-
-```json
-{
-  "capabilities": {
-    "mode": "inflow",
-    "on_off": "off",
-    "speed": 1,
-    "speed_pwm": 0,
-    "smart_speed": 1,
-    "heat": 25,
-    "damper": 0
-  },
-  "settings": {
-    "ten": {
-      "temp_limit": 25,
-      "on_off": 1,
-      "koef_grow": 50,
-      "update_koef_time": 5000000,
-      "delta": 1
-    }
-  },
-  "remote_control": 0
-}
-```
-
-#### <a name="cityairjsonserversystem"></a> server/+/cityair/system
-
-"+" - Ваш топик по умолчанию (server/vakio/cityair/system)
-
-##### Команды прибора PUBLISH
-
-Отправка команды в этот топик инициирует публикацию текущих параметров в соответствующие топики.
-
-Команда
-
-```json
-{
-  "logging": {
-    "type": "settings"
-  }
-}
-```
-
-Ответ в `device/vakio/cityair/mode`
-
-```json
-{
-  "settings": {
-    "ten": {
-      "temp_limit": 25,
-      "on_off": 1,
-      "koef_grow": 50,
-      "update_koef_time": 5000000,
-      "delta": 1
-    }
-  },
-  "remote_control": 0
-}
-```
-
-Команда
-
-```json
-{
-  "logging": {
-    "type": "capabilities"
-  }
-}
-```
-
-Ответ в `device/vakio/cityair/mode`
-
-```json
-{
-  "capabilities": {
-    "mode": "inflow",
-    "on_off": "off",
-    "speed": 1,
-    "speed_pwm": 0,
-    "smart_speed": 1,
-    "heat": 25,
-    "damper": 0
-  }
-}
-```
+Команда обновления прошивки прибора: любое значение
 
 ---
 
