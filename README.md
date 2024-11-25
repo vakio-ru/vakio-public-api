@@ -23,7 +23,7 @@
     - [+/co2](#atmosphereco2)
     - [+/hud](#atmospherehud)
   - [Управление VakioCityAir](#cityair)
-    - [device/+/cityair/system](#cityairsystem)
+    - [+/+/lwt](#lwt_topic)
     - [+/workmode](#cityairworkmode)
     - [+/speed](#cityairspeed)
     - [+/temp_limit](#cityairtemp_limit)
@@ -632,7 +632,7 @@ _Проверка онлайна_
 "+" - ваш топик (по умолчанию cityair)<br>
 .. - изменяемая часть
 
-#### <a name="lwt_pub_topic"></a> Топик +/+/lwt
+#### <a name="lwt_topic"></a> Топик +/+/lwt
 
 При отключении прибора от серверу происходит публикация сообщения "Offline"
 
